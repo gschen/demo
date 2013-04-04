@@ -1,0 +1,11 @@
+first vm file
+<br/>
+#foreach($user in $users)
+$user.username<br/>
+$user.password<br/>
+<br/>
+#d()<br/>
+#d()
+
+$app_version
+#end

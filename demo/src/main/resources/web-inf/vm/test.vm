@@ -1,0 +1,8 @@
+
+
+first vm file
+
+#foreach($user in $users)
+$user.username<br/>
+$user.password<br/>
+#end

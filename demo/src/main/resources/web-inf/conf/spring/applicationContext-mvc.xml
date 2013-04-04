@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<context:annotation-config />
+
+
+	<!-- 1. velocity engine; 2. velocity view resolver; 3. controller annotation; -->
+	<!-- ①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+	<context:component-scan base-package="edu.fudan.demo.controller" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<description>
+			这点是必需的还是非必需的呢？
+			如果定义了
+			DefaultAnnotationHandlerMapping，它就可以将请求来的 url 和被注解了 @RequesMapping
+			的指进行匹配。当然，说这句话的前提是定义 DefaultAnnotationHandlerMapping 的优先级比定义了其它的
+			HandlerMapping 的优先级要高(如果定义了其它的话)。
+			如果没有定义
+			DefaultAnnotationHandlerMapping，并不代表不能映射到相应的 handler 上。因为如果你定义了其它的
+			HandlerMapping，请求过来的 url 和注解了的 @RequestMapping 里的值正好能匹配上，那么没有
+			DefaultAnnotationHandlerMapping，@Controller 一样可以如鱼得水的被捕获到。
+			当然，如果你要使用基于注解的 @Controller，最好还是老老实实地注册
+			DefaultAnnotationHandlerMapping。
+		</description>
+	</bean>
+	<!-- <mvc:annotation-driven /> <context:component-scan base-package="liming.maven.example" 
+		/> -->
+
+	<!-- jsp view resolver start InternalResourceViewResolver会在ModelAndView返回的视图名前加上prefix指定的前缀，再在最后加上suffix指定的后缀 
+		由于UserController返回的ModelAndView中的视图名是userlist，故该视图解析器将在/WEB-INF/jsp/userlist.jsp处查找视图 
+		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix" value="/WEB-INF/classes/jsp/" /> <property name="suffix" 
+		value=".jsp" /> </bean> jsp view resolver end -->
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+
+		<property name="resourceLoaderPath" value="/WEB-INF/vm/" />
+
+		<property name="configLocation" value="/WEB-INF/conf/velocity/velocity.properties"/>
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".vm" />
+
+		<!-- 使用springMacro、使用servlet的对象 -->
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+
+		<property name="contentType" value="text/html;charset=UTF-8" />
+
+		<!-- spring的日期格式化 -->
+		<property name="dateToolAttribute" value="dateTool" />
+
+		<!-- velocity toolbox -->
+		<property name="toolboxConfigLocation" value="/WEB-INF/conf/velocity/toolbox.xml"/>
+	</bean>
+
+
+</beans>
