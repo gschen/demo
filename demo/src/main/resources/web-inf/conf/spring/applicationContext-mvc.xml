@@ -15,6 +15,7 @@
 	<!-- ①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
 	<context:component-scan base-package="edu.fudan.demo.controller" />
 
+<!-- ==================================== HandlerMapping ==================================== -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<description>
@@ -39,14 +40,18 @@
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix" value="/WEB-INF/classes/jsp/" /> <property name="suffix" 
 		value=".jsp" /> </bean> jsp view resolver end -->
+
+	<!-- =============================== VelocityConfigurer ================================= -->
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 
 		<property name="resourceLoaderPath" value="/WEB-INF/vm/" />
 
-		<property name="configLocation" value="/WEB-INF/conf/velocity/velocity.properties"/>
+		<property name="configLocation" value="/WEB-INF/conf/velocity/velocity.properties" />
 	</bean>
 
+
+	<!-- ==================================== ViewResolver ==================================== -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="suffix" value=".vm" />
@@ -62,7 +67,7 @@
 		<property name="dateToolAttribute" value="dateTool" />
 
 		<!-- velocity toolbox -->
-		<property name="toolboxConfigLocation" value="/WEB-INF/conf/velocity/toolbox.xml"/>
+		<property name="toolboxConfigLocation" value="/WEB-INF/conf/velocity/toolbox.xml" />
 	</bean>
 
 
