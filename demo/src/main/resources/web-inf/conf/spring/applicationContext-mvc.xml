@@ -31,6 +31,11 @@
 			当然，如果你要使用基于注解的 @Controller，最好还是老老实实地注册
 			DefaultAnnotationHandlerMapping。
 		</description>
+		<property name="interceptors">
+			<list>
+				<bean class="edu.fudan.demo.interceptor.MyInterceptor"></bean>
+			</list>
+		</property>
 	</bean>
 	<!-- <mvc:annotation-driven /> <context:component-scan base-package="liming.maven.example" 
 		/> -->
