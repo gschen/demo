@@ -34,6 +34,7 @@ public class MyFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) arg1;
 
 		String url = request.getRequestURI();
+		System.out.println("Request url is: "+request.getRequestURL().toString());
 
 		String srcAddr = request.getLocalAddr();
 
@@ -64,8 +65,8 @@ public class MyFilter implements Filter {
 				.getWebApplicationContext(context);
 		TestBean testBean = (TestBean) ac.getBean("testBean");
 
-		System.out.println("TestBean::Name - " + testBean.getName());
-		System.out.println("TestBean：：Password - " + testBean.getPasswd());
+		//System.out.println("TestBean::Name - " + testBean.getName());
+		//System.out.println("TestBean：：Password - " + testBean.getPasswd());
 		return;
 	}
 

@@ -17,15 +17,15 @@ public class MyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println(req);
-		System.out.println("Req get parameter addr: "+ URLDecoder.decode(req.getParameter("addr"), "utf-8"));
-		String url = req.getQueryString();
-		System.out.println("url: "+url);
-		String[]  params = url.split("[=]");
+		System.out.println("Request::getParameter(addr) is: "+ req.getParameter("addr"));
+		String queryString = req.getQueryString();
+		System.out.println("queryString is: "+queryString);
+		String[]  params = queryString.split("[=]");
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put(params[0], params[1]);
-		System.out.println("Map get key addr: "+map.get(params[0]));
+		System.out.println("Map::get(addr) is: "+map.get(params[0]));
 		return;
 	}
 	
